@@ -1,0 +1,106 @@
+<%- include("partials/header.ejs") %>
+
+
+
+<section class="posts-section">
+    <div class="posts-header">
+        <div>
+            <h2>All Posts</h2>
+            <p>Read your latest blog posts📚</p>
+        </div>
+        <div class="search">
+            <input type="text" placeholder="Search posts..." id="searchPosts">
+            <button type="button">🔍</button>
+        </div>
+    </div>
+
+    <div class="posts-container" id="posts">
+        <% posts.forEach(post => { %>
+            <article class="post-card">
+                <div class="post-content">    
+                    <h3><%= post.title %></h3>
+                    <p class="post-date">
+                        <%= post.date %>
+                    </p>
+                    <p><%= post.content %></p>
+                </div>
+
+                <div class="post-actions">
+                    <a href="/posts/<%= post.id %>/edit">Edit</a>
+                    <form action="/posts/<%= post.id %>/delete" method="POST" onsubmit="return confirm('Are you sure you want to delete this post?');">
+                        <button >
+                            Delete
+                        </button>
+                    </form>
+                    
+                </div>
+            </article>
+        <% }); %>
+
+        <!-- <article class="post-card">
+            <div class="post-content">
+                <h3>My First Blog Post</h3>
+
+                <p class="post-date">
+                    August 26, 2026
+                </p>
+
+                <p>
+                    Welcome to my blog website. This is my first post
+                    where I'll be sharing my thoughts and ideas with
+                    the world.
+                </p>
+
+                <a href="/posts/1" class="read-more">
+                    Read More →
+                </a>
+            </div>
+
+            <div class="post-actions">
+                <a href="/posts/1/edit">Edit</a>
+                <a href="/posts/1/delete">Delete</a>    
+        </article>
+
+        <article class="post-card">
+            <div class="post-content">
+                <h3>Learning Web Development</h3>
+                <p class="post-date">
+                    August 26, 2026
+                </p>
+                <P>
+                    I'm currently at the backend courses learning 
+                    about using node, express and Ejs to create the 
+                    server side of my website.
+                </P>
+                <a href="/posts/2" class="read-more">Read More ➡️</a>
+
+                <div class="post-actions">
+                    <a href="/posts/2/edit">Edit</a>
+                    <a href="/posts/2/delete">Delete</a>
+                </div>
+            </div>
+        </article>
+
+        <article class="post-card">
+            <div class="post-content">
+                <h3>Why I started Blogging</h3>
+                <p class="post-date">
+                    August 27, 2026
+                </p>
+                <P>
+                    Blogging gives me a platform to document what I learn, 
+                    share my experiences, put my thoughts into writing and 
+                    connect with other people.
+                </P>
+                <a href="/posts/3" class="read-more">Read More ➡️</a>
+
+                <div class="post-actions">
+                    <a href="/posts/3/edit">Edit</a>
+                    <a href="/posts/3/delete">Delete</a>
+                </div>
+            </div>
+        </article> -->
+    </div>
+</section>
+
+<%- include("partials/footer.ejs") %>

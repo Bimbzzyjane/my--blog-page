@@ -1,0 +1,44 @@
+<%- include("partials/header.ejs") %>
+
+<section class="post-form-section">
+    <div class="post-form-container">
+
+        <div class="post-form-header">
+            <h1>Edit your Post</h1>
+            <p>Have more to share? Update your post</p>
+        </div>
+        
+        <form action="/posts/<%= post.id %>/edit" method="POST" class="post-form">
+
+            <div class="form-group">
+                <label for="title">Post Title</label>
+                <input
+                    id="title"
+                    name="title"
+                    type="text"
+                    value="<%= post.title %>"
+                    required      
+                >
+            </div>
+            
+            <div class="form-group">
+                <label for="content">Post Content</label>
+                <textarea
+                    id="content"
+                    name="content"
+                    required
+                >
+                    <%= post.content %>
+                </textarea>
+            </div>
+
+            <div class="form-actions">
+                <a href="/" class="cancel-btn">Cancel</a>
+
+                <button type="submit" class="publish-btn">Save Changes</button>
+            </div>
+            
+        </form>
+    </div>
+</section>
+<%- include("partials/footer.ejs") %>

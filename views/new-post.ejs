@@ -1,0 +1,49 @@
+<%- include("partials/header.ejs") %>
+
+<section class="post-form-section">
+    <div class="post-form-container">
+        <div class="post-form-header">
+            <h1>Create a new post</h1>
+            <p>Share your thoughts and inspire the world</p>
+
+        </div>
+    
+        <form action="/post" method="POST" class="post-form">
+
+            <div class="form-group">
+                <label for="title">Post Title</label>
+
+                <input
+                    type="text"
+                    id="title"
+                    name="title"
+                    placeholder="Write your post title..."
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="content">Post Content</label>
+
+                <textarea
+                    id="content"
+                    name="content"
+                    placeholder="Write your post here..."
+                    required
+                ></textarea>
+            </div>
+            
+            <div class="form-actions">
+                <a href="/" class="cancel-btn">Cancel</a>
+
+                <button type="submit" class="publish-btn">
+                    Publish Post
+                </button>
+            </div>
+
+
+        </form>
+    </div>
+</section>
+
+<%- include("partials/footer.ejs") %>

@@ -1,12 +1,13 @@
 import express from "express";
-import bodyParser from "body-parser";
 
 const app= express();
 const port = 3000;
 
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(express.urlencoded({extended:true}));
 app.use(express.static("public"));
 
+
+// Temporary storage for our blog posts
 let posts = [
     {
         id: Date.now(),
@@ -25,19 +26,24 @@ let posts = [
 ];
 //console.log('id', posts[0].id, posts[1].id);
 
+
+//Home Page
 app.get("/", (req, res) => {
     res.render("index.ejs", {posts: posts});
 
 });
 
+// Create post page
 app.get("/posts/new", (req, res) => {
     res.render("new-post.ejs");
 });
 
+//About page
 app.get("/about", (req, res) => {
     res.render("about.ejs");
 });
 
+//// Create a new post
 app.post("/post", (req, res)=> {
     const newPost = {
         id: Date.now(), 
@@ -49,6 +55,7 @@ app.post("/post", (req, res)=> {
     res.redirect("/");
 })
 
+//Edit post page
 app.get("/posts/:id/edit", (req, res) => {
 
     const id = Number(req.params.id);
@@ -62,6 +69,7 @@ app.get("/posts/:id/edit", (req, res) => {
 
 });
 
+//Update a post
 app.post("/posts/:id/edit", (req, res) => {
 
     const id = Number(req.params.id);
@@ -75,6 +83,7 @@ app.post("/posts/:id/edit", (req, res) => {
 
 });
 
+//Delete a post
 app.post("/posts/:id/delete", (req, res) => {
 
     const id = Number(req.params.id);
@@ -85,6 +94,7 @@ app.post("/posts/:id/delete", (req, res) => {
 
 });
 
-app.listen(3000, function (){
+//Start the server
+app.listen(port, function (){
     console.log(`Server running on port ${port}`)
 });

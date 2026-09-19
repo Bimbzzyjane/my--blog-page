@@ -63,10 +63,6 @@ http://localhost:3000
 
 ![Create Post](screenshots/create-post.png)
 
-### Mobile View
-
-![MyBlog Mobile](screenshots/mobile.png)
-
 
 ## Note
 

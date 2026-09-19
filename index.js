@@ -25,22 +25,29 @@ let posts = [
     
 ];
 //console.log('id', posts[0].id, posts[1].id);
-
+const user = "Janet"
 
 //Home Page
 app.get("/", (req, res) => {
-    res.render("index.ejs", {posts: posts});
+    res.render("index.ejs", {
+        posts: posts,
+        user: user,
+    });
 
 });
 
 // Create post page
 app.get("/posts/new", (req, res) => {
-    res.render("new-post.ejs");
+    res.render("new-post.ejs", {
+        user: user,
+    });
 });
 
 //About page
 app.get("/about", (req, res) => {
-    res.render("about.ejs");
+    res.render("about.ejs", {
+        user: user,
+    });
 });
 
 //// Create a new post
@@ -63,7 +70,8 @@ app.get("/posts/:id/edit", (req, res) => {
     const post = posts.find(post => post.id === id);
 
     res.render("edit-post.ejs", {
-        post: post
+        post: post,
+        user: user,
     });
     
 

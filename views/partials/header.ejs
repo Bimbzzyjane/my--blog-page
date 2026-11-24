@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Janet's Blog</title>
+    <title>My-Blog</title>
     <link rel="stylesheet" href="/styles/main.css">
 </head>
 <body>
@@ -14,19 +14,25 @@
                 <img src="/images/logo.png" alt="MyBlog Logo">
             </a>
             <div class="nav-links">
-                <a href="/" class="active">Home</a>
+                <a href="/" class="<%= typeof activePage === 'undefined' || activePage !== 'my-posts' ? 'active' : '' %>"><%= user ? 'Home' : 'All Posts' %></a>
                 <a href="/about">About</a>
-                <a href="/#posts">My Posts</a>
+                <% if (user) { %>
+                    <a href="/my-posts" class="<%= typeof activePage !== 'undefined' && activePage === 'my-posts' ? 'active' : '' %>">My Posts</a>
+                <% } %>
             </div>
             <div class="nav-right">
-                <span class="user-greeting">Hello, <%= user %></span>
-                <a href="/posts/new" class="new-post-btn">
-                    New Post <span>+</span>
-                </a>
+                <% if (user) { %>
 
-            </div>
-                 
-                
+                    <span class="user-greeting">Hello, <%= user.name %></span>
+
+                    <form action="/logout" method="POST" class="logout-form">
+                        <button type="submit" class="nav logout-btn">Logout</button>
+                    </form>
+                <% } else { %>
+                    <a href = "/login" class="nav sign-in-btn">Sign in</a>
+                    <a href="/register" class="nav register-btn">Create account</a>
+                <% } %>
+            </div>         
         </nav>
     </header>
 <main class="container">

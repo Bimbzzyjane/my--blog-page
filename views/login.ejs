@@ -1,0 +1,48 @@
+<%- include("partials/header.ejs") %>
+
+<% const formValues = typeof values !== "undefined" && values ? values : {}; %>
+
+<section class="post-form-section auth-section" aria-labelledby="login-heading">
+    <div class="post-form-container auth-card">
+        <div class="post-form-header">
+            <h1 id="login-heading">Welcome back</h1>
+            <p>Sign in to MyBlog and keep your ideas flowing.</p>
+        </div>
+
+        <% if ((typeof error !== "undefined" && error) || (typeof errors !== "undefined" && Array.isArray(errors) && errors.length)) { %>
+            <div class="auth-errors" role="alert">
+                <% if (typeof error !== "undefined" && error) { %>
+                    <p><%= error %></p>
+                <% } %>
+                <% if (typeof errors !== "undefined" && Array.isArray(errors) && errors.length) { %>
+                    <ul>
+                        <% errors.forEach(message => { %>
+                            <li><%= message %></li>
+                        <% }); %>
+                    </ul>
+                <% } %>
+            </div>
+        <% } %>
+
+        <form action="/login" method="POST" class="post-form auth-form">
+            <div class="form-group">
+                <label for="login-email">Email</label>
+                <input type="email" id="login-email" name="email" autocomplete="username" value="<%= formValues.email || '' %>" required>
+            </div>
+
+            <div class="form-group">
+                <label for="login-password">Password</label>
+                <input type="password" id="login-password" name="password" autocomplete="current-password" required>
+            </div>
+
+            <button type="submit" class="publish-btn">Sign in</button>
+        </form>
+
+        <div class="auth-divider"><span>or</span></div>
+        <a href="/auth/google" class="auth-google-btn">Continue with Google</a>
+
+        <p class="auth-switch">New to MyBlog? <a href="/register">Create an account</a></p>
+    </div>
+</section>
+
+<%- include("partials/footer.ejs") %>

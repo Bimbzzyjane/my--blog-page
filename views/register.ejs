@@ -1,0 +1,58 @@
+<%- include("partials/header.ejs") %>
+
+<% const formValues = typeof values !== "undefined" && values ? values : {}; %>
+
+<section class="post-form-section auth-section" aria-labelledby="register-heading">
+    <div class="post-form-container auth-card">
+        <div class="post-form-header">
+            <h1 id="register-heading">Create your account</h1>
+            <p>Join MyBlog and start sharing your thoughts.</p>
+        </div>
+
+        <% if ((typeof error !== "undefined" && error) || (typeof errors !== "undefined" && Array.isArray(errors) && errors.length)) { %>
+            <div class="auth-errors" role="alert">
+                <% if (typeof error !== "undefined" && error) { %>
+                    <p><%= error %></p>
+                <% } %>
+                <% if (typeof errors !== "undefined" && Array.isArray(errors) && errors.length) { %>
+                    <ul>
+                        <% errors.forEach(message => { %>
+                            <li><%= message %></li>
+                        <% }); %>
+                    </ul>
+                <% } %>
+            </div>
+        <% } %>
+
+        <form action="/register" method="POST" class="post-form auth-form">
+            <div class="form-group">
+                <label for="register-name">Full name</label>
+                <input type="text" id="register-name" name="name" autocomplete="name" value="<%= formValues.name || '' %>" required>
+            </div>
+
+            <div class="form-group">
+                <label for="register-email">Email</label>
+                <input type="email" id="register-email" name="email" autocomplete="email" value="<%= formValues.email || '' %>" required>
+            </div>
+
+            <div class="form-group">
+                <label for="register-password">Password</label>
+                <input type="password" id="register-password" name="password" autocomplete="new-password" required>
+            </div>
+
+            <div class="form-group">
+                <label for="register-confirm-password">Confirm password</label>
+                <input type="password" id="register-confirm-password" name="confirmPassword" autocomplete="new-password" required>
+            </div>
+
+            <button type="submit" class="publish-btn">Create account</button>
+        </form>
+
+        <div class="auth-divider"><span>or</span></div>
+        <a href="/auth/google" class="auth-google-btn">Continue with Google</a>
+
+        <p class="auth-switch">Already have an account? <a href="/login">Sign in</a></p>
+    </div>
+</section>
+
+<%- include("partials/footer.ejs") %>

@@ -92,7 +92,7 @@ app.get("/", async (req, res) => {
             ORDER BY posts.created_at DESC, posts.id DESC
         `);
         const posts = result.rows;
-        console.log(posts);
+
         res.render("index.ejs", {
         posts: posts,
     });

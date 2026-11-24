@@ -6,7 +6,9 @@ A multi-user blogging application built with Node.js, Express, EJS, JavaScript, 
 
 ## Live Demo
 
-Live Demo: Coming soon — `https://YOUR-RENDER-SERVICE.onrender.com`
+Live Demo: [MyBlog on Render](https://myblog-app-whpc.onrender.com/)
+
+Hosted as a Render Web Service with PostgreSQL for application data and sessions.
 
 ## Features
 
@@ -30,6 +32,7 @@ Live Demo: Coming soon — `https://YOUR-RENDER-SERVICE.onrender.com`
 | Authentication | bcrypt, Passport, `passport-google-oauth20` |
 | Sessions | `express-session`, `connect-pg-simple` |
 | Configuration | dotenv |
+| Hosting | Render Web Service |
 
 ### Authentication and ownership
 
@@ -119,21 +122,19 @@ This runs `SELECT NOW()`; it does not validate application tables or authenticat
 
 ## Deployment
 
-Render deployment and production readiness have not been verified. The install and start commands are `npm install` and `npm start`; there is no frontend build step or deployment configuration in the repository. The code already supports a host-provided `PORT`, a PostgreSQL `DATABASE_URL`, and one trusted proxy hop when `NODE_ENV=production`.
+MyBlog is deployed as a [Render Web Service](https://myblog-app-whpc.onrender.com/). The application uses PostgreSQL for users, posts, Google provider accounts, and sessions; the database hosting provider is not specified in the repository.
 
-Before deploying:
+The install and start commands are `npm install` and `npm start`, with no frontend build step. The server reads the host-provided `PORT`, and the database pool accepts `DATABASE_URL` or individual `PG_*` settings. In production, Express trusts one proxy hop and enables secure session cookies.
 
-- Provision PostgreSQL, supply the environment variables through the hosting service, and complete the database schema, including `auth_accounts` for Google sign-in.
-- Supply `DATABASE_URL` or the individual `PG_*` settings, and review the database provider's TLS requirements. The pool has no explicit `ssl` option in code; connection-string settings may affect TLS behavior.
-- Verify HTTPS and that the production setting of one trusted proxy hop matches the hosting topology, so secure session cookies work correctly.
-- Set `NODE_ENV=production`, use a strong session secret, and update `GOOGLE_CALLBACK_URL` and the Google client's authorized redirect URI to the deployed `/auth/google/callback` URL.
-- Test registration, both sign-in methods, session persistence, logout, and post ownership in the hosted environment before marking the demo live.
+Deployment configuration to maintain in Render:
 
-After deployment, replace the Live Demo placeholder with the verified public URL and update these instructions with the confirmed hosting configuration. Production security hardening remains future work.
+- Set the database connection variables, `SESSION_SECRET`, Google client credentials, and `NODE_ENV=production` through the service's environment settings.
+- Set `GOOGLE_CALLBACK_URL` and the Google client's authorized redirect URI to `https://myblog-app-whpc.onrender.com/auth/google/callback`.
+- Ensure the database includes the Google provider-account table described above. Review database TLS requirements and the proxy configuration for the hosting environment.
+
+Features above were checked against the repository code. Hosted authentication flows and production security hardening were not verified during this documentation update.
 
 ## Screenshots
-
-Existing project previews; these may predate the current authentication and My Posts pages.
 
 ### Homepage
 
@@ -142,16 +143,3 @@ Existing project previews; these may predate the current authentication and My P
 ### Create Post
 
 ![Create post form](screenshots/create-post.png)
-
-## Future Improvements
-
-- Add a versioned migration for Google provider accounts and a complete fresh-database setup.
-- Implement post search and pagination.
-- Add automated tests for authentication and post ownership.
-- Add password reset and email verification for local accounts.
-- Complete production configuration and review CSRF protection, rate limiting, and error handling.
-- Update the About page's outdated in-memory storage description and refresh screenshots.
-
-## Author
-
-**Janet Okedoyin**
